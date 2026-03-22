@@ -1,0 +1,90 @@
+{
+  // ╔══════════════════════════════════════════════════════╗
+  // ║  launch.json — Configuración de debugging           ║
+  // ║  Carpeta: .vscode/launch.json                       ║
+  // ╚══════════════════════════════════════════════════════╝
+  //
+  // Cómo usar:
+  //   F5          → iniciar debugging
+  //   F9          → poner/quitar breakpoint
+  //   F10         → siguiente línea (step over)
+  //   F11         → entrar a la función (step into)
+  //   Shift+F11   → salir de la función (step out)
+  //   Ctrl+Shift+F5 → reiniciar
+  //   Shift+F5    → detener
+
+  "version": "0.2.0",
+  "configurations": [
+
+    // ── 1. Correr archivo actual ─────────────────────────
+    {
+      "name": "▶ Correr archivo actual",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",           // el archivo que tienes abierto
+      "console": "integratedTerminal",
+      "justMyCode": false,            // permite entrar a librerías externas
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+
+    // ── 2. Correr main.py siempre ────────────────────────
+    {
+      "name": "▶ Correr main.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+
+    // ── 3. Debug completo — ve dentro de tkinter ─────────
+    {
+      "name": "🔍 Debug completo (con librerías)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": false,            // entra a tkinter, ttk, etc.
+      "subProcess": true,             // detecta subprocesos
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}",
+        "PYTHONFAULTHANDLER": "1",    // muestra stack trace en crashes
+        "PYTHONASYNCIODEBUG": "1"     // debug de async si lo usas
+      },
+      "logToFile": true               // guarda log del debugger
+    },
+
+    // ── 4. Debug con argumentos (si tu app los usa) ──────
+    {
+      "name": "🔧 Debug con argumentos",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "args": ["--dev", "--verbose"],  // argumentos de línea de comandos
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}",
+        "APP_ENV": "development"       // variable de entorno custom
+      }
+    },
+
+    // ── 5. Attach — conectarse a un proceso ya corriendo ─
+    {
+      "name": "🔗 Attach a proceso existente",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "host": "localhost",
+        "port": 5678
+      },
+      "justMyCode": false
+    }
+
+  ]
+}

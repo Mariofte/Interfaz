@@ -1,0 +1,73 @@
+{
+  // ╔══════════════════════════════════════════════════════╗
+  // ║  tasks.json — Tareas automatizadas                  ║
+  // ║  Carpeta: .vscode/tasks.json                        ║
+  // ║                                                      ║
+  // ║  Cómo usar: Ctrl+Shift+P → "Run Task"               ║
+  // ╚══════════════════════════════════════════════════════╝
+
+  "version": "2.0.0",
+  "tasks": [
+
+    // ── Correr el proyecto ───────────────────────────────
+    {
+      "label": "▶ Correr app",
+      "type": "shell",
+      "command": "python",
+      "args": ["${workspaceFolder}/main.py"],
+      "group": {
+        "kind": "build",
+        "isDefault": true         // Ctrl+Shift+B ejecuta esta tarea
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+
+    // ── Crear entorno virtual ────────────────────────────
+    {
+      "label": "🔧 Crear venv",
+      "type": "shell",
+      "command": "python -m venv .venv",
+      "windows": {
+        "command": "python -m venv .venv"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+
+    // ── Instalar dependencias ────────────────────────────
+    {
+      "label": "📦 Instalar dependencias",
+      "type": "shell",
+      "command": "pip install -r requirements.txt",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "dependsOn": "🔧 Crear venv"
+    },
+
+    // ── Limpiar __pycache__ ──────────────────────────────
+    {
+      "label": "🧹 Limpiar cache",
+      "type": "shell",
+      "windows": {
+        "command": "Get-ChildItem -Recurse -Filter __pycache__ | Remove-Item -Recurse -Force"
+      },
+      "linux": {
+        "command": "find . -type d -name __pycache__ -exec rm -rf {} +"
+      },
+      "osx": {
+        "command": "find . -type d -name __pycache__ -exec rm -rf {} +"
+      },
+      "presentation": {
+        "reveal": "silent"
+      }
+    }
+
+  ]
+}

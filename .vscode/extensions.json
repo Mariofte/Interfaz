@@ -1,0 +1,27 @@
+{
+  // ╔══════════════════════════════════════════════════════╗
+  // ║  extensions.json — Extensiones recomendadas         ║
+  // ║  Carpeta: .vscode/extensions.json                   ║
+  // ║                                                      ║
+  // ║  VSCode te preguntará si quieres instalarlas         ║
+  // ╚══════════════════════════════════════════════════════╝
+
+  "recommendations": [
+    // ── Python esenciales ─────────────────────────────────
+    "ms-python.python",              // Python base (obligatorio)
+    "ms-python.debugpy",             // Debugger moderno
+    "ms-python.black-formatter",     // Formateador de código
+    "ms-python.flake8",              // Linter (detecta errores)
+    "ms-python.isort",               // Ordena imports automáticamente
+
+    // ── Autocompletado inteligente ────────────────────────
+    "ms-python.vscode-pylance",      // IntelliSense avanzado para Python
+
+    // ── Utilidades ────────────────────────────────────────
+    "usernamehw.errorlens",          // Muestra errores inline en el código
+    "eamodio.gitlens",               // Git mejorado
+    "pkief.material-icon-theme",     // Íconos bonitos en el explorador
+    "oderwat.indent-rainbow",        // Colorea la indentación
+    "streetsidesoftware.code-spell-checker" // Corrector ortográfico
+  ]
+}
