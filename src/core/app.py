@@ -1,65 +1,47 @@
 from tkinter import Frame, Tk
-
-from .sidebar import Sidebar
-
-from ..utils import Center, Router
-
+from ..config import ConfigApp
+from .router import Router
+from ..utils import Center
 from ..views import PaginaConfig, PaginaInicio
+from ..views.components import Sidebar
 
 class App(Tk):
     def __init__(self):
-        super().__init__(
-            screenName="Hola mundo",
-            baseName="Hmoew"
-        )
-        self.head()
-        self.body()
-    
-    def head(self) -> None:
-        # ====================
-        # Groove             |
-        # ====================
-        self.title("Mi App")
-        
-        # ====================
-        # Geometry           |
-        # ====================
-        Center(self, 800, 600)
-        self.resizable(True, True)
-        self.minsize(500, 500)
-        self.maxsize(1280, 720)
-        
-        # ====================
-        # Screen features    |
-        # ====================
+        super().__init__()
+        self.__config = ConfigApp()
+        self._head()
+        self._body()
+
+    def _head(self) -> None:
+        self.title(self.__config.get_title())
+        Center(self, self.__config.get_broad(), self.__config.get_height())
+        self.resizable(self.__config.get_resizable()[0], self.__config.get_resizable()[1])
+        self.minsize(self.__config.get_minsize()[0], self.__config.get_minsize()[1])
+        self.maxsize(self.__config.get_maxsize()[0], self.__config.get_maxsize()[1])
         self.state("zoomed")
         self.attributes("-fullscreen", True)
         self.attributes("-fullscreen", False)
         self.attributes("-alpha", 0.9)
         self.attributes("-topmost", True)
-    
-    def body(self) -> None:
-# 1. Área de contenido (va a la derecha)
+
+    def _body(self) -> None:
         contenedor = Frame(self, bg="white")
         contenedor.pack(side="left", fill="both", expand=True)
 
-        # 2. Router — registra las páginas
-        self.router = Router(contenedor)
-        self.router.register("Inicio",  Frame)   # ← reemplaza Frame con tus páginas reales
-        self.router.register("Config",  Frame)
+        self._router = Router(contenedor)
+        self._router.build({
+            "Inicio": PaginaInicio,
+            "Config": PaginaConfig,
+        }) # pyright: ignore[reportArgumentType]
 
-        # 3. Sidebar — conectada al router
-        self.sidebar = Sidebar(self, on_navegar=self._navegar)
-        self.sidebar.pack(before=contenedor)
+        self._sidebar = Sidebar(self, on_navegar=self._navegar)
+        self._sidebar.pack(before=contenedor)
 
-        for nombre in self.router.nombres:
-            self.sidebar.add_button(nombre)
+        for nombre in self._router.nombres:
+            self._sidebar.add_button(nombre)
 
-        self._navegar("Inicio")  # página inicial
+        self._navegar("Inicio")
 
     def _navegar(self, nombre: str) -> None:
-        self.router.navigate(nombre)
-        self.sidebar.mark_active(nombre)
-        
-    def __repr__(self) -> str:
-        return super().__repr__()
+        self._router.navigate(nombre)
+        self._sidebar.mark_active(nombre)

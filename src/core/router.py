@@ -6,6 +6,12 @@ class Router:
         self._container = container
         self._paginas: dict[str, Frame] = {}
     
+    def build(self, pages: dict[str, Type[Frame]]) -> None:
+        for name, page_class in pages.items():
+            page = page_class(self._container)
+            page.place(relheight=1, relwidth=1)
+            self._paginas[name] = page
+    
     def register(self, name:str, page_class: Type[Frame]) -> None:
         page = page_class(self._container)
         page.place(relheight=1, relwidth=1)

@@ -1,0 +1,17 @@
+{
+    "title": "App",
+    "broad": 800,
+    "height": 600,
+    "resizable": [
+        false,
+        false
+    ],
+    "minsize": [
+        500,
+        500
+    ],
+    "maxsize": [
+        1280,
+        720
+    ]
+}

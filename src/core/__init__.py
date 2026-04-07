@@ -1,4 +1,4 @@
 from .app import App
-from .sidebar import Sidebar
+from .router import Router
 
-__all__ = ["App", "Sidebar"]
+__all__ = ["App"]
