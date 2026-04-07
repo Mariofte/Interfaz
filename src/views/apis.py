@@ -1,5 +1,4 @@
 from tkinter import Label, Entry
-0
 from ..utils import Layout
 
 class PaginaAPIs(Layout):

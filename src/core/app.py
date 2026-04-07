@@ -1,7 +1,8 @@
-from tkinter import Frame, Tk
+from tkinter import Tk, Frame
+from utils.center import Center
 from ..config import ConfigApp
 from .router import Router
-from ..utils import Center
+from ..utils import Center, Logger
 from ..views import PaginaConfig, PaginaInicio
 from ..views.components import Sidebar
 
