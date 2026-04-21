@@ -23,7 +23,7 @@ class Logger:
                     '  %(asctime)s  [%(name)s]  {%(levelname)s} | %(message)s'
                 )
                 file = RotatingFileHandler(
-                    filename=os.path.join(os.getcwd(), archive),
+                    filename=archive,
                     maxBytes=1_000_000,  # 1MB máximo
                     backupCount=3,       # guarda hasta 3 archivos anteriores
                     encoding='utf-8'
@@ -35,7 +35,7 @@ class Logger:
     def __repr__(self) -> str:
         return f"Logger(name={self.logger.name}, level={self.logger.level})"
     
-    def get_logger(self):
+    def get_logger(self) -> log.Logger:
         return self.logger
     
     def info(self, msg: str) -> None:

@@ -1,9 +1,8 @@
 from tkinter import Tk, Frame
-from utils.center import Center
 from ..config import ConfigApp
 from .router import Router
-from ..utils import Center, Logger
-from ..views import PaginaConfig, PaginaInicio
+from ..utils import Center
+from ..views import PaginaConfig, PaginaInicio, PaginaAPIs
 from ..views.components import Sidebar
 
 class App(Tk):
@@ -33,6 +32,7 @@ class App(Tk):
         self._router.build({
             "Inicio": PaginaInicio,
             "Config": PaginaConfig,
+            "APIs": PaginaAPIs
         }) # pyright: ignore[reportArgumentType]
 
         self._sidebar = Sidebar(self, on_navegar=self._navegar)
