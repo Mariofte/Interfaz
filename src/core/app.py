@@ -1,28 +1,38 @@
 from tkinter import Tk, Frame
-from ..config import ConfigApp
 from .router import Router
-from ..utils import Center
+from ..utils import Center, Logger
 from ..views import PaginaConfig, PaginaInicio, PaginaAPIs
 from ..views.components import Sidebar
 
 class App(Tk):
     def __init__(self):
         super().__init__()
-        self.__config = ConfigApp()
+        self.logger = Logger("App")
+        self.logger.info("Iniciando aplicación...")
         self._head()
         self._body()
 
     def _head(self) -> None:
-        self.title(self.__config.get_title())
-        Center(self, self.__config.get_broad(), self.__config.get_height())
-        self.resizable(self.__config.get_resizable()[0], self.__config.get_resizable()[1])
-        self.minsize(self.__config.get_minsize()[0], self.__config.get_minsize()[1])
-        self.maxsize(self.__config.get_maxsize()[0], self.__config.get_maxsize()[1])
-        self.state("zoomed")
+        self.title("App")
+        Center(self, 800, 600)
+        self.resizable(
+            True,
+            True
+        )
+        self.minsize(
+            400,
+            300
+        )
+        self.maxsize(
+            1600,
+            1200
+        )
         self.attributes("-fullscreen", True)
         self.attributes("-fullscreen", False)
         self.attributes("-alpha", 0.9)
         self.attributes("-topmost", True)
+        
+        self.logger.info("Configuración de ventana establecida.")
 
     def _body(self) -> None:
         contenedor = Frame(self, bg="white")
@@ -44,5 +54,6 @@ class App(Tk):
         self._navegar("Inicio")
 
     def _navegar(self, nombre: str) -> None:
+        self.logger.info(f"Navegando a {nombre}")
         self._router.navigate(nombre)
         self._sidebar.mark_active(nombre)

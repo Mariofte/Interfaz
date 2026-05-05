@@ -1,1 +1,8 @@
+.venv/
+
 .vscode/
+
+examples/
+
+__pycache__/
+*.pyc
