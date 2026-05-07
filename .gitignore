@@ -6,3 +6,5 @@ examples/
 
 __pycache__/
 *.pyc
+
+*.env

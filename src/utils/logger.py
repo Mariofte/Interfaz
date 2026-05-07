@@ -1,7 +1,9 @@
 import os
 import logging as log
+from dotenv import load_dotenv
+load_dotenv()  # Carga las variables de entorno desde el archivo .env
 
-DEBUG = True  # ← cambia a False en producción
+DEBUG = os.getenv('APP_ENV', 'development') == 'development'
 
 class Logger:
     def __init__(self, name: str):

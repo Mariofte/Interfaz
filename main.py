@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from src.core import App
 
 def main() -> None:
